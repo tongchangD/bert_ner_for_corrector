@@ -2,13 +2,12 @@ from os.path import join
 from codecs import open
 
 
-def build_corpus(split, make_vocab=True, data_dir="./dataset"):
+def build_corpus(split, make_vocab=True, data_dir="./dataset/old"):
     """读取数据"""
     assert split in ['train', 'dev', 'test']
-
     word_lists = []
     tag_lists = []
-    with open(join(data_dir, "example."+split), 'r', encoding='utf-8') as f:
+    with open(join(data_dir, split+".char.txt"), 'r', encoding='utf-8') as f:
         word_list = []
         tag_list = []
         for line in f:
@@ -22,7 +21,6 @@ def build_corpus(split, make_vocab=True, data_dir="./dataset"):
                 tag_lists.append(tag_list)
                 word_list = []
                 tag_list = []
-
     # 如果make_vocab为True，还需要返回word2id和tag2id
     if make_vocab:
         word2id = build_map(word_lists)
